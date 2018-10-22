@@ -1,0 +1,24 @@
+.white{
+    background-image: url(images/WhiteSquare.png);
+    border: 0px;
+    margin: 0px;
+    padding: 0px;
+    
+}
+
+.green{
+    background-image: url(images/GreenSquare.png);
+    border: 0px;
+    margin: 0px;
+    padding: 0px;
+}
+
+table{
+    border-collapse: collapse;
+    table-layout: auto;
+}
+
+td{
+  width: 60px;
+  height: 60px;
+}
