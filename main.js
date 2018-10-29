@@ -58,8 +58,8 @@ function setupDifficulty(difficulty) {
     if (difficulty === "Hard") {
         placeShipsArray(2, "Vertical");
         placeShipsArray(3, "Horizontal");
-        placeShipsArray(4, "Vertical");
-        placeShipsArray(5, "Horizontal");
+        placeShipsArray(4, "Horizontal");
+        placeShipsArray(5, "Vertical");
         placeShips();
         placeNonShips();
         console.log(shipidarray);
@@ -84,7 +84,7 @@ function changeTurnCount(turns) {
         h2.replaceChild(newtext, h2child);
     }
 
-    if (turncount === 0 && shipsclicked === shipidarray.length) {
+    if (shipsclicked === shipidarray.length) {
         h2.replaceChild(wintext, h2child);
         table.style.display = "none";
         setTimeout(function () {
@@ -110,7 +110,7 @@ function placeShipsArray(size, orientation) {
 
     if (orientation === "Horizontal") {
         //two random x and y values
-        let randomx = Math.floor(Math.random() * (8));
+        let randomx = Math.floor(Math.random() * (8 - size));
         let randomy = Math.floor(Math.random() * (8));
 
         //adds the ship id's to the shipidarray and checks if the current
@@ -121,14 +121,17 @@ function placeShipsArray(size, orientation) {
             for (let i = 0; i < size; i++) {
                 if (randomx + i <= 7) {
                     let shipid = `${randomx + i} ${randomy}`;
-                    if (shipidarray.includes(shipid) === false) {
+                    if (shipidarray.includes(shipid) == false) {
                         shipidarray.push(shipid);
                     } else {
+                        shipidarray.push(shipid);
+                        console.log(shipidarray);
                         for (i; i >= 0; i--) {
                             shipidarray.pop();
                         }
+                        console.log(shipidarray);
                         i = -1;
-                        randomx = Math.floor(Math.random() * 8);
+                        randomx = Math.floor(Math.random() * (8 - size));
                         randomy = Math.floor(Math.random() * 8);
                         console.log("can't be placed on creep");
                     }
@@ -137,7 +140,7 @@ function placeShipsArray(size, orientation) {
                         shipidarray.pop();
                     }
                     i = -1;
-                    randomx = Math.floor(Math.random() * 8);
+                    randomx = Math.floor(Math.random() * (8 - size));
                     randomy = Math.floor(Math.random() * 8);
                     console.log("outofbounds");
                 }
@@ -147,34 +150,37 @@ function placeShipsArray(size, orientation) {
 
     //Same thing as the horizontal, but it increments the randomy value.
     if (orientation === "Vertical") {
-        
+
         let randomx = Math.floor(Math.random() * 8);
-        let randomy = Math.floor(Math.random() * 8);
-        
+        let randomy = Math.floor(Math.random() * (8 - size));
+
 
         document.addEventListener("DOMContentLoaded", event => {
             for (let i = 0; i < size; i++) {
                 if (randomy + i <= 7 && randomy + i >= 0) {
                     let shipid = `${randomx} ${randomy + i}`;
-                    if (shipidarray.includes(shipid) === false) {
+                    if (shipidarray.includes(shipid) == false) {
                         shipidarray.push(shipid);
                     } else {
-                        for (i; i > 0; i--) {
+                        shipidarray.push(shipid);
+                        console.log(shipidarray);
+                        for (i; i >= 0; i--) {
                             shipidarray.pop();
                         }
+                        console.log(shipidarray);
                         i = -1;
                         randomx = Math.floor(Math.random() * 8);
-                        randomy = Math.floor(Math.random() * 8);
+                        randomy = Math.floor(Math.random() * (8 - size));
                         console.log("can't be placed on creep");
                     }
 
                 } else {
-                    for (i; i > 0; i--) {
+                    for (i; i >= 0; i--) {
                         shipidarray.pop();
                     }
                     i = -1;
                     randomx = Math.floor(Math.random() * 8);
-                    randomy = Math.floor(Math.random() * 8);
+                    randomy = Math.floor(Math.random() * (9 - size));
                     console.log("outofbounds");
                 }
             }

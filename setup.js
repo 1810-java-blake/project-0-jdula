@@ -6,14 +6,13 @@ var difficulty = localStorage.difficulty;
 //and saves it in localStorage
 document.addEventListener("DOMContentLoaded", () => {
     let button = document.getElementById("startbutton");
-    //returns true or false if the radio button is checked or not
-    let easy = document.getElementById("Easy").checked;
-    let intermediate = document.getElementById("Intermediate").checked;
-    let hard = document.getElementById("Hard").checked;
-    
+
     //add a click listener to the start button that changes the difficulty value 
     //based on the radio button form.
     button.addEventListener("click", event => {
+        let easy = document.getElementById("Easy").checked;
+        let intermediate = document.getElementById("Intermediate").checked;
+        let hard = document.getElementById("Hard").checked;
         if (easy) {
             localStorage.difficulty = "Easy";
             console.log(difficulty)
