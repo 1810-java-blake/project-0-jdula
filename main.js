@@ -1,9 +1,16 @@
+//2D array containing 8 arrays meant to represent the ids present on the board.
 let spacearray = [[], [], [], [], [], [], [], []];
+//array for storing the id's of the ship pieces.
 let shipidarray = [];
+//array for storing the id's of the non-ship pieces.
 let idarray = [];
-let turncount = 20;
-let shipsclicked = 0;
 
+//Variables for determining the win state of the game.
+let turncount = 25;
+let shipsclicked = 0;
+let difficulty = localStorage.difficulty;
+
+//document.addEventListener used for building the spacearray and the h2 text.
 document.addEventListener("DOMContentLoaded", event => {
     let h2 = document.getElementById("textarea");
     let newtext = document.createTextNode(`Remaining Turns: ${turncount}`)
@@ -29,28 +36,38 @@ document.addEventListener("DOMContentLoaded", event => {
 
 })
 
-
-class Ship {
-    constructor(size, orientation) {
-        this.size = size;
-        this.orientation
+//Places the ships and non-ships on the board based on the difficulty from the setup screen.
+function setupDifficulty(difficulty) {
+    if (difficulty === "Easy") {
+        placeShipsArray(5, "Vertical");
+        placeShipsArray(5, "Horizontal");
+        placeShips();
+        placeNonShips();
+        console.log(shipidarray);
     }
 
-    getSize() {
-        return this.size;
-    }
-    setSize(size) {
-        this.size = size;
+    if (difficulty === "Intermediate") {
+        placeShipsArray(2, "Vertical");
+        placeShipsArray(3, "Horizontal");
+        placeShipsArray(4, "Vertical");
+        placeShips();
+        placeNonShips();
+        console.log(shipidarray);
     }
 
-    getOrientation() {
-        return this.orientation;
-    }
-    setOrientation(orientation) {
-        this.orientation = orientation;
+    if (difficulty === "Hard") {
+        placeShipsArray(2, "Vertical");
+        placeShipsArray(3, "Horizontal");
+        placeShipsArray(4, "Vertical");
+        placeShipsArray(5, "Horizontal");
+        placeShips();
+        placeNonShips();
+        console.log(shipidarray);
     }
 }
 
+//This function handles the changing of the h2 containing the turncount text, the win text,
+//and the lose text. It also sends the user back to the setup screen once they win or lose.
 function changeTurnCount(turns) {
 
     let table = document.getElementById("table");
@@ -70,22 +87,36 @@ function changeTurnCount(turns) {
     if (turncount === 0 && shipsclicked === shipidarray.length) {
         h2.replaceChild(wintext, h2child);
         table.style.display = "none";
+        setTimeout(function () {
+            window.location.replace("setup.html");
+        }, 3000);
     }
 
     if (turncount === 0 && shipsclicked !== shipidarray.lenth) {
         h2.replaceChild(losetext, h2child);
         table.style.display = "none";
+        setTimeout(function () {
+            window.location.replace("setup.html");
+        }, 3000);
     }
 }
 
 
-//randomly builds the ship array 
+//Builds the ship array using randomly generated numbers.
+//If a value in one of the ships were to overlap with another,
+//That ship would be regenerated.
+//Places the ships based on size and orientation. 
 function placeShipsArray(size, orientation) {
 
     if (orientation === "Horizontal") {
-        let randomx = Math.floor(Math.random() * (9 - size));
+        //two random x and y values
+        let randomx = Math.floor(Math.random() * (8));
         let randomy = Math.floor(Math.random() * (8));
 
+        //adds the ship id's to the shipidarray and checks if the current
+        //ship can fit in the shipidarray. If not, it pops the current ship id's that
+        //have been placed in the array and resets the loop to try again and resets the 
+        //randomx and randomy values.
         document.addEventListener("DOMContentLoaded", event => {
             for (let i = 0; i < size; i++) {
                 if (randomx + i <= 7) {
@@ -114,9 +145,12 @@ function placeShipsArray(size, orientation) {
         })
     }
 
+    //Same thing as the horizontal, but it increments the randomy value.
     if (orientation === "Vertical") {
+        
         let randomx = Math.floor(Math.random() * 8);
         let randomy = Math.floor(Math.random() * 8);
+        
 
         document.addEventListener("DOMContentLoaded", event => {
             for (let i = 0; i < size; i++) {
@@ -161,6 +195,8 @@ function placeShips() {
             img.id = `${shipidarray[i]}`;
             cell.appendChild(img);
             img.addEventListener("click", event => {
+                //This if statement is present to prevent multiple turns being used to click 
+                //previously clicked spaces
                 if (img.className != "clicked") {
                     turncount--;
                     shipsclicked++;
@@ -200,6 +236,8 @@ function placeNonShips() {
             img.id = `${idarray[i]}`;
             cell.appendChild(img);
             img.addEventListener("click", event => {
+                //This if statement is present to prevent multiple turns being used to click 
+                //previously clicked spaces
                 if (img.className != "clicked") {
                     turncount--;
                     console.log(turncount);
@@ -217,11 +255,6 @@ function placeNonShips() {
     })
 }
 
-//places 3 ships, 2 vertical and 1 horizontal.
-placeShipsArray(2, "Vertical");
-placeShipsArray(3, "Horizontal");
-placeShipsArray(4, "Vertical");
-placeShips();
-placeNonShips();
-console.log(shipidarray);
+//calls the setupDifficulty function using the difficulty we recieved from the setup page.
+setupDifficulty(difficulty);
 

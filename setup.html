@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,7 +9,38 @@
     <link rel="stylesheet" type="text/css" media="screen" href="setup.css" />
     <script src="setup.js"></script>
 </head>
+
 <body>
-    
+    <div>
+        <h2>The Rules:</h2>
+        <p>
+            This game functions somewhat similar to battleship. <br>
+            You must click the spaces on the board that represent enemy ships. <br>
+            Ship spaces will display a fire picture when clicked, and non-ship spaces <br>
+            will display a white flag when clicked.
+            Below, you can change the difficulty of the board you want to play on. <br>
+            Easy: 2 ships, both size 5, 1 vertical ship and 1 horizontal ship. 25 turns. <br>
+            Intermediate: 3 ships, 2 vertical and 1 horizontal, size 2, 3, 4. 25 turns. <br>
+            Hard: 4 ships, 2 vertical and 2 horizontal, size 2, 3, 4, 5. 25 turns. <br>
+            Once you have selected a difficulty, press the start button to begin. <br>
+        </p>
+    </div>
+
+    <div>
+        <form id = "Difficulty">
+            <input type="radio" name="difficulty" id="Easy" value="Easy" checked>Easy
+            <input type="radio" name="difficulty" id="Intermediate" value="Intermediate">Intermediate
+            <input type="radio" name="difficulty" id="Hard" value="Hard">Hard
+        </form>
+    </div>
+
+    <div>
+        <br>
+        <button id="startbutton">
+            Begin Game
+        </button>
+    </div>
+
 </body>
+
 </html>
