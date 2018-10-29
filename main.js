@@ -78,6 +78,8 @@ function changeTurnCount(turns) {
     }
 }
 
+
+//randomly builds the ship array 
 function placeShipsArray(size, orientation) {
 
     if (orientation === "Horizontal") {
@@ -146,6 +148,8 @@ function placeShipsArray(size, orientation) {
     }
 }
 
+//This function places the pictures of the ships and 
+//adds a click listener to each 
 function placeShips() {
     document.addEventListener("DOMContentLoaded", () => {
         for (let i = 0; i < shipidarray.length; i++) {
@@ -169,12 +173,12 @@ function placeShips() {
                 }
 
             })
-            // console.log(img);
-            // console.log(shipid);
         }
     })
 }
 
+//fills the board with items that look the same as ships
+//and adds a click listener to each one
 function placeNonShips() {
     document.addEventListener("DOMContentLoaded", () => {
         console.log(shipidarray);
@@ -213,6 +217,7 @@ function placeNonShips() {
     })
 }
 
+//places 3 ships, 2 vertical and 1 horizontal.
 placeShipsArray(2, "Vertical");
 placeShipsArray(3, "Horizontal");
 placeShipsArray(4, "Vertical");
