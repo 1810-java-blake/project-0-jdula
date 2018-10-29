@@ -80,12 +80,12 @@ function changeTurnCount(turns) {
     let losetext = document.createTextNode("You Lose");
     let wintext = document.createTextNode("You Win!");
 
-    if (turncount > 0) {
-        h2.replaceChild(newtext, h2child);
+    if (turncount > 0 && shipsclicked !== shipidarray.length) {
+        h2child.replaceWith(newtext);
     }
 
     if (shipsclicked === shipidarray.length) {
-        h2.replaceChild(wintext, h2child);
+        h2child.replaceWith(wintext);
         table.style.display = "none";
         setTimeout(function () {
             window.location.replace("setup.html");
@@ -93,7 +93,7 @@ function changeTurnCount(turns) {
     }
 
     if (turncount === 0 && shipsclicked !== shipidarray.lenth) {
-        h2.replaceChild(losetext, h2child);
+        h2.replaceWith(losetext);
         table.style.display = "none";
         setTimeout(function () {
             window.location.replace("setup.html");
